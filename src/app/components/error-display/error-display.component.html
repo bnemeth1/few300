@@ -1,0 +1,7 @@
+<div *ngIf="hasError">
+  <h1 class="alert">{{errorMessage}}</h1>
+  <input type="button"
+         class="btn btn-sm btn-danger"
+         value="X"
+         (click)="clearError()">
+</div>

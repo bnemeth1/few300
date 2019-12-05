@@ -3,7 +3,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { HttpClient } from '@angular/common/http';
 import * as holidayActions from '../actions/holidays.action';
-import { switchMap, map } from 'rxjs/operators';
+import { switchMap, map, catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
 import { HolidayEntity } from '../reducers/holidays.reducer';
 import { environment } from '../../../../environments/environment';
 
@@ -20,7 +21,11 @@ export class HolidayEffects {
           name: originalAction.payload.name,
           date: originalAction.payload.date
         }).pipe(
-          map(newHoliday => holidayActions.addHolidaySucceeded({ payload: newHoliday, oldId: originalAction.payload.id }))
+          map(newHoliday => holidayActions.addHolidaySucceeded({ payload: newHoliday, oldId: originalAction.payload.id })),
+          catchError((err) => of(holidayActions.addHolidayFailed({
+            payload: originalAction.payload,
+            message: 'Could not add the holiday. IT IS FAKE'
+          })))
         ))
       )
     , { dispatch: true });

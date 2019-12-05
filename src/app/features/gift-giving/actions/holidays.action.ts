@@ -14,6 +14,11 @@ export const addHoliday = createAction(
   })
 );
 
+export const addHolidayFailed = createAction(
+  '[give giving] adding a holiday failed',
+  props<{ payload: HolidayEntity, message: string }>()
+);
+
 export const addHolidaySucceeded = createAction(
   '[gift giving] holiday added successfully',
   props<{ payload: HolidayEntity, oldId: string }>()

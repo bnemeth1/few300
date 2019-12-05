@@ -24,7 +24,8 @@ const reducerFunction = createReducer(
   on(actions.addHolidaySucceeded, (state, action) => {
     const oldState = adapter.removeOne(action.oldId, state);  // cannot update the id, so remove one and add one
     return adapter.addOne(action.payload, oldState);
-  })
+  }),
+  on(actions.addHolidayFailed, (state, action) => adapter.removeOne(action.payload.id, state))
 );
 
 export function reducer(state: HolidayState = initialState, action: Action) {

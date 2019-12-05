@@ -9,4 +9,11 @@
        [routerLinkActive]="['active']"
        [routerLink]="['gift-giving']">Gift Giving</a>
   </li>
+  <li class="nav-item"
+      *ngIf="isAdmin$ | async">
+    <a class="nav-link"
+       [routerLinkActive]="['active']"
+       [routerLink]="['administration']"
+       href="#">Administration</a>
+  </li>
 </ul>
